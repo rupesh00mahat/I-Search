@@ -1,18 +1,45 @@
 import React, {useState} from "react";
-import style from './style.module.css'
 import SearchBar from "./search-bar";
 import ImageDisplay from "./image-display";
+import LoadingBar from 'react-top-loading-bar'
+import Navbar from "./navbar";
+import { LoadingContext } from "./store/loading-context";
+
 
 function App() {
   const [images, changeImage] = useState([]);
+  const [progress, setProgress] = useState(0);
+  const [loading, changeLoading] = useState(false);
+
+  const changeProgress = (value) => {
+    setProgress(value);
+  }
+  const loadingChange = (value) => {
+    changeLoading(value);
+  }
+  const alterImage = (value) => {
+    changeImage(value);
+  }
+  
   return (
-    <div className="i-search">
-      <h1 className={style['main-heading']}>I Search</h1>
-      <SearchBar changeImages={(images)=>{
-       changeImage(images.results);
-      }}/>
-      <ImageDisplay images={images}/>
+   <LoadingContext.Provider value={{
+    loading,
+    loadingChange,
+    alterImage,
+    changeProgress,
+   }}>
+    <LoadingBar
+        progress={progress}
+        onLoaderFinished={() => setProgress(0)}
+      />
+     <div className="i-search">
+      <Navbar />
+      <SearchBar 
+      />
+     <ImageDisplay images={images}/>
+     
     </div>
+    </LoadingContext.Provider>
   );
 }
 

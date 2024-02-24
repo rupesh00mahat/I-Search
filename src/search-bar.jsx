@@ -1,16 +1,27 @@
-import React, {useRef} from 'react'
+import React, {useContext, useRef} from 'react'
 import style from './style.module.css'
+import { LoadingContext } from './store/loading-context';
 
-function SearchBar({changeImages}) {
+
+function SearchBar() {
+
+  const { alterImage, changeProgress, loadingChange} = useContext(LoadingContext);
+
    const userInput = useRef('');
-
    const searchImage = async (e)=>{
     e.preventDefault();
-
+    loadingChange(true);
+    changeProgress(10);
     let url = `https://api.unsplash.com/search/photos?page=1&query=${userInput.current.value}&client_id=IUxVPek6JUrAO4DIg-AlJ1WYrMZjyhFCPxWtFbHKFzs`;
+    changeProgress(30);
     const response = await fetch(url);
+    changeProgress(50);
     const images = await response.json();
-   changeImages(images);
+    changeProgress(70);
+    alterImage(images.results);
+    changeProgress(90);
+    changeProgress(100);
+    loadingChange(false);
    }
 
   return (
