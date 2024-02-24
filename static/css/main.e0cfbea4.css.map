@@ -1,0 +1,1 @@
+{"version":3,"file":"static/css/main.e0cfbea4.css","mappings":"AAAA,2BACG,iBACH,CACA,+BACI,YAAa,CACb,SACJ","sources":["style.module.css"],"sourcesContent":[".main-heading{\r\n   text-align: center;\r\n}\r\n.form-search-bar{\r\n    display: flex;\r\n    width: 70%;\r\n}\r\n.image-item-link{\r\n\r\n}"],"names":[],"sourceRoot":""}
